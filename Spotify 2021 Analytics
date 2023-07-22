@@ -67,3 +67,20 @@ SELECT artist_name,
   FROM BIT_DB.SpotifyData
  ORDER BY popularity DESC
  LIMIT 5;
+
+
+
+-- Which artists have an average popularity of 90 or above? 
+-- Using a CTE, I will calculate the average popularity for the artists in the Spotify data table, and order them by most to least popular.
+
+WITH popularity_avg AS (
+    SELECT artist_name,
+           avg(popularity) AS avg_popularity
+      FROM SpotifyData
+     GROUP BY artist_name)
+
+SELECT artist_name,
+       avg_popularity
+  FROM popularity_avg
+ WHERE avg_popularity >= 90
+ ORDER BY avg_popularity DESC;

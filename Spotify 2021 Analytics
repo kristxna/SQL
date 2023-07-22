@@ -3,7 +3,7 @@
 
 
 -- Creating the table 
-CREATE TABLE BIT_DB.SpotifyData (
+CREATE TABLE SpotifyData (
     id               INTEGER        PRIMARY KEY,
     artist_name      VARCHAR        NOT NULL,
     track_name       VARCHAR        NOT NULL,
@@ -31,7 +31,7 @@ SELECT artist_name,
        avg(popularity),
        avg(danceability),
        avg(energy) 
-  FROM BIT_DB.SpotifyData
+  FROM SpotifyData
  GROUP BY artist_name,
           track_name;
 
@@ -39,14 +39,14 @@ SELECT artist_name,
  -- How many song entries does each artist have in the top 50?
 SELECT artist_name,
        count(artist_name) AS num_songs
-  FROM BIT_DB.SpotifyData
+  FROM SpotifyData
  GROUP BY artist_name;
 
  
 -- Which artists had more than one song in the top 50? 
 SELECT artist_name,
        count(artist_name) AS num_songs
-  FROM BIT_DB.SpotifyData
+  FROM SpotifyData
  GROUP BY artist_name
  HAVING num_songs > 1
  ORDER BY num_songs DESC;
@@ -56,7 +56,7 @@ SELECT artist_name,
 SELECT artist_name,
        track_name,
        danceability
-  FROM BIT_DB.SpotifyData
+  FROM SpotifyData
  ORDER BY danceability DESC
  LIMIT 10;
 
@@ -64,7 +64,7 @@ SELECT artist_name,
 -- Who are the top 5 most popular artists in 2021 on Spotify?
 SELECT artist_name,
        popularity
-  FROM BIT_DB.SpotifyData
+  FROM SpotifyData
  ORDER BY popularity DESC
  LIMIT 5;
 

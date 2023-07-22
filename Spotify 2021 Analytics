@@ -1,0 +1,69 @@
+-- For this analysis project, I downloaded Spotify top 50 songs in 2021 data from Kaggle and created a table to insert Spotify data into.
+-- Using the data, I asked myself questions to perform analytics on the data using SQL. 
+
+
+-- Creating the table 
+CREATE TABLE BIT_DB.SpotifyData (
+    id               INTEGER        PRIMARY KEY,
+    artist_name      VARCHAR        NOT NULL,
+    track_name       VARCHAR        NOT NULL,
+    track_id         VARCHAR        NOT NULL,
+    popularity       INTEGER        NOT NULL,
+    danceability     DECIMAL (4, 3) NOT NULL,
+    energy           DECIMAL (4, 3) NOT NULL,
+    song_key         INTEGER        NOT NULL,
+    loudness         DECIMAL (5, 3) NOT NULL,
+    song_mode        INTEGER        NOT NULL,
+    speechiness      DECIMAL (5, 4) NOT NULL,
+    acousticness     DECIMAL (6, 5) NOT NULL,
+    instrumentalness DECIMAL (8, 7) NOT NULL,
+    liveness         DECIMAL (5, 4) NOT NULL,
+    valence          DECIMAL (4, 3) NOT NULL,
+    tempo            DECIMAL (6, 3) NOT NULL,
+    duration_ms      INTEGER        NOT NULL,
+    time_signature   INTEGER        NOT NULL);
+
+
+
+-- What is the avg popularity, danceability, and energy by artist and track. 
+SELECT artist_name,
+       track_name,
+       avg(popularity),
+       avg(danceability),
+       avg(energy) 
+  FROM BIT_DB.SpotifyData
+ GROUP BY artist_name,
+          track_name;
+
+
+ -- How many song entries does each artist have in the top 50?
+SELECT artist_name,
+       count(artist_name) AS num_songs
+  FROM BIT_DB.SpotifyData
+ GROUP BY artist_name;
+
+ 
+-- Which artists had more than one song in the top 50? 
+SELECT artist_name,
+       count(artist_name) AS num_songs
+  FROM BIT_DB.SpotifyData
+ GROUP BY artist_name
+ HAVING num_songs > 1
+ ORDER BY num_songs DESC;
+
+
+-- What were the top 10 most danceable songs in 2021 on Spotify?
+SELECT artist_name,
+       track_name,
+       danceability
+  FROM BIT_DB.SpotifyData
+ ORDER BY danceability DESC
+ LIMIT 10;
+
+
+-- Who are the top 5 most popular artists in 2021 on Spotify?
+SELECT artist_name,
+       popularity
+  FROM BIT_DB.SpotifyData
+ ORDER BY popularity DESC
+ LIMIT 5;

@@ -114,3 +114,22 @@ SELECT Product,
  GROUP BY Product
  ORDER BY Revenue DESC
  LIMIT 1;
+
+
+-- #14. Find the account numbers, the count of order IDs, product, quantity, price, order date, and location for all orders that were placed in February.
+SELECT customers.acctnum,
+       count(customers.order_ID) AS Orders,
+       FebSales.Product,
+       FebSales.Quantity,
+       FebSales.price,
+       FebSales.orderdate,
+       FebSales.location
+  FROM customers 
+       INNER JOIN
+       FebSales ON customers.order_id = FebSales.orderid
+ GROUP BY customers.acctnum,
+          FebSales.Product,
+          FebSales.Quantity,
+          FebSales.price,
+          FebSales.orderdate,
+          FebSales.location;
